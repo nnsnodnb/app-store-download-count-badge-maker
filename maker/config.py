@@ -42,7 +42,7 @@ def parse_config(config: str) -> Config:
 
     try:
         private_key = Path(raw_secrets["private_key"]).read_text()
-    except KeyError or FileNotFoundError:
+    except (KeyError, FileNotFoundError):
         raise InvalidConfigError("Invalid the configuration file.")
 
     try:
@@ -69,9 +69,4 @@ def parse_config(config: str) -> Config:
     except KeyError:
         raise InvalidConfigError("Missing 'apps' key in the configuration file.")
 
-    config = Config(
-        secrets=secrets,
-        apps=apps,
-    )
-
-    return config
+    return Config(secrets=secrets, apps=apps)

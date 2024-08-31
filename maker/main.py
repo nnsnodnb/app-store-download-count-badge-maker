@@ -15,7 +15,8 @@ from .config import InvalidConfigError, parse_config
     "-V",
     prog_name="app-store-download-count-badge-maker",
 )
-def cli() -> None: ...
+def cli() -> None:
+    pass
 
 
 @click.command(help="Generate badges for the App Store download count.")
@@ -36,7 +37,7 @@ def cli() -> None: ...
 )
 def generate(config: str, output: str) -> None:
     try:
-        config = parse_config(config=config)
+        conf = parse_config(config=config)
     except InvalidConfigError as e:
         click.echo(e, err=True)
         raise click.exceptions.Exit(1)
@@ -44,7 +45,7 @@ def generate(config: str, output: str) -> None:
         click.echo(e, err=True)
         raise click.exceptions.Exit(2)
 
-    reports = sales_reports(config=config)
+    reports = sales_reports(config=conf)
 
     output_dir = Path(output)
     output_dir.mkdir(exist_ok=True)
