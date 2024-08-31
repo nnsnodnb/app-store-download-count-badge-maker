@@ -1,7 +1,12 @@
 import calendar
 from datetime import datetime, timedelta
-from enum import StrEnum
 from typing import Optional
+
+try:
+    from enum import StrEnum
+except ImportError:
+    # Support for versions below Python 3.11
+    from enum import Enum as StrEnum
 
 
 class Frequency(StrEnum):
