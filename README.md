@@ -74,6 +74,10 @@ apps:
 
 This tool uses [Shields.io](https://shields.io/) to create badges displaying the number of app downloads from App Store.
 
+## Projects using `app-store-download-count-badge-maker`
+
+- [nnsnodnb/self-app-store-download-count-badges](https://github.com/nnsnodnb/self-app-store-download-count-badges)
+
 ## License
 
 This software is licensed under the MIT License.
