@@ -1,10 +1,16 @@
 import calendar
+import sys
 from datetime import datetime, timedelta
-from enum import StrEnum
 from typing import Optional
 
+# Support for versions below Python 3.11
+if sys.version_info >= (3, 11):
+    from enum import StrEnum as Enum
+else:
+    from enum import Enum
 
-class Frequency(StrEnum):
+
+class Frequency(Enum):
     YEARLY = "YEARLY"
     MONTHLY = "MONTHLY"
     WEEKLY = "WEEKLY"
@@ -23,8 +29,8 @@ class Frequency(StrEnum):
         else:
             raise ValueError(f"Invalid frequency: {self}")
 
-    def report_date(self) -> Optional[str]:
-        base = datetime.now() - timedelta(days=2)
+    def report_date(self, today: datetime) -> Optional[str]:
+        base = today - timedelta(days=2)
         if self == Frequency.YEARLY:
             return str(base.year - 1)
         elif self == Frequency.MONTHLY:
@@ -44,7 +50,7 @@ class Frequency(StrEnum):
             raise ValueError(f"Invalid frequency: {self}")
 
 
-class Color(StrEnum):
+class Color(Enum):
     RED = "red"
     YELLOW = "yellow"
     YELLOWGREEN = "yellowgreen"

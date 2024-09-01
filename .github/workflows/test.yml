@@ -1,0 +1,42 @@
+name: Test
+
+on:
+  push: {}
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.9', '3.10', '3.11', '3.12']
+
+    name: Python ${{ matrix.python-version }} tests
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Install poetry
+      run: |
+        pip install -U pip pipx
+        pipx install poetry
+
+    - name: Configure poetry
+      uses: actions/setup-python@v5
+      with:
+          python-version: ${{ matrix.python-version }}
+          cache: 'poetry'
+
+    - name: Install dependencies
+      shell: bash
+      run: |
+        poetry install --sync --no-root
+        poetry self add "poetry-dynamic-versioning[plugin]"
+
+    - name: Run pytest
+      run: |
+        poetry run python -m pytest -v tests
