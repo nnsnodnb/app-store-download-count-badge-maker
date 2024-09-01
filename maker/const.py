@@ -1,15 +1,16 @@
+import sys
 import calendar
 from datetime import datetime, timedelta
 from typing import Optional
 
-try:
-    from enum import StrEnum
-except ImportError:
-    # Support for versions below Python 3.11
-    from enum import Enum as StrEnum
+# Support for versions below Python 3.11
+if sys.version_info >= (3, 11):
+    from enum import StrEnum as Enum
+else:
+    from enum import Enum
 
 
-class Frequency(StrEnum):
+class Frequency(Enum):
     YEARLY = "YEARLY"
     MONTHLY = "MONTHLY"
     WEEKLY = "WEEKLY"
@@ -49,7 +50,7 @@ class Frequency(StrEnum):
             raise ValueError(f"Invalid frequency: {self}")
 
 
-class Color(StrEnum):
+class Color(Enum):
     RED = "red"
     YELLOW = "yellow"
     YELLOWGREEN = "yellowgreen"
