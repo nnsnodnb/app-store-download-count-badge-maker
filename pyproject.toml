@@ -39,6 +39,8 @@ flake8 = "^7.1.1"
 invoke = "^2.2.0"
 types-pyyaml = "^6.0.12.20240808"
 pytest-httpx = "^0.30.0"
+pytest-asyncio = "^0.24.0"
+pytest-mock = "^3.14.0"
 
 [tool.poetry.scripts]
 app-store-download-count-badge-maker = "maker.main:cli"
@@ -70,3 +72,6 @@ exclude = '''
 include_trailing_comma = true
 line_length = 120
 multi_line_output = 3
+
+[tool.pytest.ini_options]
+asyncio_default_fixture_loop_scope = "function"

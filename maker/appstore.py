@@ -86,7 +86,7 @@ async def get_sales_reports_with_frequency(secrets: Secrets, frequency: Frequenc
     }
     params = {
         "filter[frequency]": frequency.value,
-        "filter[reportDate]": frequency.report_date(),
+        "filter[reportDate]": frequency.report_date(today=datetime.today()),
         "filter[reportSubType]": "SUMMARY",
         "filter[reportType]": "SALES",
         "filter[vendorNumber]": secrets.vendor_number,

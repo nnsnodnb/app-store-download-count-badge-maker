@@ -28,8 +28,8 @@ class Frequency(StrEnum):
         else:
             raise ValueError(f"Invalid frequency: {self}")
 
-    def report_date(self) -> Optional[str]:
-        base = datetime.now() - timedelta(days=2)
+    def report_date(self, today: datetime) -> Optional[str]:
+        base = today - timedelta(days=2)
         if self == Frequency.YEARLY:
             return str(base.year - 1)
         elif self == Frequency.MONTHLY:

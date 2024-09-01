@@ -198,3 +198,4 @@ Temporary Items
 *.tsv
 config.secrets.yml
 dist
+!tests/config/dummy.p8
