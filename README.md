@@ -70,6 +70,10 @@ apps:
     frequency: WEEKLY 
 ```
 
+## Badge Creation :sparkles:
+
+This tool uses [Shields.io](https://shields.io/) to create badges displaying the number of app downloads from App Store.
+
 ## License
 
 This software is licensed under the MIT License.
