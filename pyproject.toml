@@ -48,7 +48,7 @@ app-store-download-count-badge-maker = "maker.main:cli"
 [tool.poetry-dynamic-versioning]
 enable = true
 vcs = "git"
-pattern = "^((?P<epoch>\\d+)!)?(?P<base>\\d+(\\.\\d+)*)"
+style = "pep440"
 
 [build-system]
 requires = ["poetry-core", "poetry-dynamic-versioning>=1.0.0,<2.0.0"]
