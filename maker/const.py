@@ -30,7 +30,7 @@ class Frequency(Enum):
             raise ValueError(f"Invalid frequency: {self}")
 
     def report_date(self, today: datetime) -> Optional[str]:
-        base = today - timedelta(days=2)
+        base = today - timedelta(days=3)
         if self == Frequency.YEARLY:
             return str(base.year - 1)
         elif self == Frequency.MONTHLY:

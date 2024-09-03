@@ -37,6 +37,9 @@ $ app-store-download-count-badge-maker generate \
 
 By default, the `--config (or -c)` option is set to `config.yml` and the `--output (or -o)` options is set to `dist`.
 
+> [!NOTE]
+> The count is based on 3 days prior to the execution date.
+
 ## Configuration
 
 Create a configuration file in YAML format.  
