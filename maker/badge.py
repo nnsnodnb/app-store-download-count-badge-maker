@@ -1,6 +1,7 @@
 import asyncio
 from pathlib import Path
 from typing import List
+from urllib.parse import urlencode
 
 from httpx import AsyncClient
 
@@ -13,7 +14,13 @@ def create_badge_url(sales_report: SalesReport) -> str:
     unit_per_frequency = sales_report.units_per_frequency().replace("/", "%2F")
     color = sales_report.get_badge_color()
     right = f"{unit_per_frequency}-{color.value}"
-    badge_url = f"{BASE_URL}/download-{right}"
+
+    params = {
+        "style": sales_report.app.badge_style.value,
+    }
+    query = urlencode(params)
+
+    badge_url = f"{BASE_URL}/download-{right}?{query}"
 
     return badge_url
 

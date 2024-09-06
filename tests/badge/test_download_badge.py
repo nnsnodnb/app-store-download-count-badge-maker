@@ -5,7 +5,7 @@ import pytest
 from maker.appstore import SalesReport
 from maker.badge import download_badge
 from maker.config import App
-from maker.const import Frequency
+from maker.const import BadgeStyle, Frequency
 
 
 @pytest.fixture()
@@ -21,5 +21,10 @@ async def test_it(tmp_path, httpx_mock, svg_bytes):
         content=svg_bytes,
     )
 
-    sales_report = SalesReport(units=210, app=App(apple_identifier=1, frequency=Frequency.MONTHLY))
+    sales_report = SalesReport(
+        units=210, app=App(apple_identifier=1, frequency=Frequency.MONTHLY, badge_style=BadgeStyle.FLAT)
+    )
     await download_badge(sales_report=sales_report, download_dir=tmp_path)
+    path = tmp_path / f"{sales_report.app.apple_identifier}-{sales_report.app.frequency.badge_value}.svg"
+
+    assert path.exists()
