@@ -8,7 +8,13 @@ apps:
     frequency: MONTHLY
   - apple_identifier: 1234567890
     frequency: WEEKLY
+    badge_style: flat-square
   - apple_identifier: 1234567890
     frequency: DAILY
+    badge_style: plastic
   - apple_identifier: 1234567890
     frequency: YEARLY
+    badge_style: for-the-badge
+  - apple_identifier: 1234567890
+    frequency: YEARLY
+    badge_style: social

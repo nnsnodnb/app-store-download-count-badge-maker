@@ -57,6 +57,7 @@ The configuration file `config.yml` should contain the following sections:
 - `apps`: A list of applications for which you want to create download count badges.
   - `apple_identifier`: The unique identifier for the app in the App Store.
   - `frequency`: The frequency at which you want to generate the badge. Must be one of `DAILY`, `WEEKLY`, `MONTHLY`, `YEARLY`.
+  - `badge_style` (Optional): The style of the badge. Must be one of `flat` (default), `flat-square`, `plastic`, `for-the-badge`, `social`.
 
 ### Example Configuration
 
@@ -70,7 +71,8 @@ apps:
   - apple_identifier: 1289764391
     frequency: MONTHLY
   - apple_identifier: 1234567890
-    frequency: WEEKLY 
+    frequency: WEEKLY
+    badge_style: flat-square
 ```
 
 ## Badge Creation :sparkles:

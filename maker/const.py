@@ -50,6 +50,14 @@ class Frequency(Enum):
             raise ValueError(f"Invalid frequency: {self}")
 
 
+class BadgeStyle(Enum):
+    FLAT = "flat"
+    FLAT_SQUARE = "flat-square"
+    FOR_THE_BADGE = "for-the-badge"
+    PLASTIC = "plastic"
+    SOCIAL = "social"
+
+
 class Color(Enum):
     RED = "red"
     YELLOW = "yellow"
