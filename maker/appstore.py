@@ -78,12 +78,9 @@ def gen_token(secrets: Secrets) -> str:
     return token
 
 
-async def get_sales_reports_with_frequency(secrets: Secrets, frequency: Frequency, download_dir: Path) -> Optional[int]:
-    token = gen_token(secrets)
-    headers = {
-        "Authorization": f"Bearer {token}",
-        "Accept": "*/*",
-    }
+async def get_sales_reports_with_frequency(
+    client: AsyncClient, secrets: Secrets, frequency: Frequency, download_dir: Path
+) -> Optional[int]:
     params = {
         "filter[frequency]": frequency.value,
         "filter[reportDate]": frequency.report_date(today=datetime.today()),
@@ -92,9 +89,8 @@ async def get_sales_reports_with_frequency(secrets: Secrets, frequency: Frequenc
         "filter[vendorNumber]": secrets.vendor_number,
     }
 
-    async with AsyncClient(params=params, headers=headers) as client:
-        url = "https://api.appstoreconnect.apple.com/v1/salesReports"
-        res = await client.get(url)
+    url = "https://api.appstoreconnect.apple.com/v1/salesReports"
+    res = await client.get(url, params=params)
 
     try:
         res.raise_for_status()
@@ -114,11 +110,20 @@ async def get_sales_reports_with_frequency(secrets: Secrets, frequency: Frequenc
 
 
 async def download_sales_reports(secrets: Secrets, frequencies: Set[Frequency], download_dir: Path) -> None:
-    tasks = [
-        get_sales_reports_with_frequency(secrets=secrets, frequency=frequency, download_dir=download_dir)
-        for frequency in frequencies
-    ]
-    await asyncio.gather(*tasks)
+    token = gen_token(secrets)
+    headers = {
+        "Authorization": f"Bearer {token}",
+        "Accept": "*/*",
+    }
+    async with AsyncClient(headers=headers) as client:
+        tasks = [
+            get_sales_reports_with_frequency(
+                client=client, secrets=secrets, frequency=frequency, download_dir=download_dir
+            )
+            for frequency in frequencies
+        ]
+
+        await asyncio.gather(*tasks)
 
 
 def parse_tsv(tsv_path: Path, apple_identifier: int) -> int:
