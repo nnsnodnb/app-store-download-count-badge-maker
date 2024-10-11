@@ -1,15 +1,16 @@
 import pytest
+from httpx import AsyncClient
 
 from maker.appstore import Secrets, get_sales_reports_with_frequency
 from maker.const import Frequency
 
 
 @pytest.mark.asyncio
-async def test_success(tmp_path, mocker, httpx_mock):
-    mocker.patch("maker.appstore.gen_token", return_value="dummy_token")
+async def test_success(tmp_path, httpx_mock):
     httpx_mock.add_response(status_code=200)
 
     result = await get_sales_reports_with_frequency(
+        client=AsyncClient(),
         secrets=Secrets(
             private_key="private_key",
             issuer_id="issuer_id",
@@ -26,11 +27,11 @@ async def test_success(tmp_path, mocker, httpx_mock):
 
 
 @pytest.mark.asyncio
-async def test_not_found(tmp_path, mocker, httpx_mock):
-    mocker.patch("maker.appstore.gen_token", return_value="dummy_token")
+async def test_not_found(tmp_path, httpx_mock):
     httpx_mock.add_response(status_code=404)
 
     result = await get_sales_reports_with_frequency(
+        client=AsyncClient(),
         secrets=Secrets(
             private_key="private_key",
             issuer_id="issuer_id",

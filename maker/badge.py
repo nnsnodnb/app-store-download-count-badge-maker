@@ -25,21 +25,24 @@ def create_badge_url(sales_report: SalesReport) -> str:
     return badge_url
 
 
-async def download_badge(sales_report: SalesReport, download_dir: Path) -> None:
+async def download_badge(client: AsyncClient, sales_report: SalesReport, download_dir: Path) -> None:
     badge_url = create_badge_url(sales_report=sales_report)
-
-    async with AsyncClient() as client:
-        res = await client.get(badge_url)
-
     badge_filename = f"{sales_report.app.apple_identifier}-{sales_report.app.frequency.badge_value}.svg"
     badge_path = download_dir / badge_filename
+
+    res = await client.get(badge_url)
 
     badge_path.write_bytes(res.content)
 
 
 async def download_badges(sales_reports: List[SalesReport], download_dir: Path) -> None:
-    tasks = [download_badge(sales_report=sales_report, download_dir=download_dir) for sales_report in sales_reports]
-    await asyncio.gather(*tasks)
+    async with AsyncClient() as client:
+        tasks = [
+            download_badge(client=client, sales_report=sales_report, download_dir=download_dir)
+            for sales_report in sales_reports
+        ]
+
+        await asyncio.gather(*tasks)
 
 
 def create_badges(sales_reports: List[SalesReport], download_dir: Path) -> None:
