@@ -2,10 +2,10 @@ import asyncio
 import gzip
 import io
 import tempfile
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import datetime
 from pathlib import Path
-from typing import List, Optional, Set
+from typing import Any, Dict, List, Optional, Set
 
 import httpx
 import jwt
@@ -55,8 +55,23 @@ class SalesReport:
             return Color.BRIGHTGREEN
 
 
+@dataclass
+class AppStoreConnectErrorResponse:
+    status: str
+    code: str
+    title: str
+    detail: str
+    source: Optional[str] = field(default=None)
+    meta: Optional[Dict[str, Any]] = field(default=None)
+    links: Optional[Dict[str, Any]] = field(default=None)
+
+
 class AppStoreConnectError(Exception):
-    pass
+    errors: List[AppStoreConnectErrorResponse]
+
+    def __init__(self, err: Dict[str, Any]) -> None:
+        errs = err.get("errors", [])
+        self.errors = [AppStoreConnectErrorResponse(**data) for data in errs]
 
 
 def gen_token(secrets: Secrets) -> str:
@@ -98,7 +113,7 @@ async def get_sales_reports_with_frequency(
         if e.response.status_code == httpx.codes.NOT_FOUND:
             return 0
         else:
-            raise AppStoreConnectError from e
+            raise AppStoreConnectError(e.response.json())
 
     with gzip.open(io.BytesIO(res.content), "rb") as f:
         data = f.read()
