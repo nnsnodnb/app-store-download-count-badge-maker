@@ -61,9 +61,16 @@ class AppStoreConnectErrorResponse:
     code: str
     title: str
     detail: str
+    id_: Optional[str] = field(default=None, metadata={"original": "id"})
     source: Optional[str] = field(default=None)
     meta: Optional[Dict[str, Any]] = field(default=None)
     links: Optional[Dict[str, Any]] = field(default=None)
+
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> "AppStoreConnectErrorResponse":
+        field_map = {f.metadata.get("original", f.name): f.name for f in cls.__dataclass_fields__.values()}
+        kwargs = {field_map.get(k, k): v for k, v in data.items()}
+        return cls(**kwargs)
 
 
 class AppStoreConnectError(Exception):
@@ -71,7 +78,7 @@ class AppStoreConnectError(Exception):
 
     def __init__(self, err: Dict[str, Any]) -> None:
         errs = err.get("errors", [])
-        self.errors = [AppStoreConnectErrorResponse(**data) for data in errs]
+        self.errors = [AppStoreConnectErrorResponse.from_dict(data) for data in errs]
 
 
 def gen_token(secrets: Secrets) -> str:
