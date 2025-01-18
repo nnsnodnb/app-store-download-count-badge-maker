@@ -27,6 +27,13 @@ $ pipx install app-store-download-count-badge-maker
 
 - Python 3.9 or later
 
+## Features
+
+- Generate badges for the App Store download count.
+  - `app-store-download-count-badge-maker generate` command.
+- Generate index.html from config.yml.
+  - `app-store-download-count-badge-maker make-index` command.
+
 ## Usage
 
 ```shell

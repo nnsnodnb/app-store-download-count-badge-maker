@@ -1,20 +1,22 @@
 from pathlib import Path
+from typing import Generator
 
 import pytest
 
-from maker.appstore import App
-from maker.config import parse_config
+from maker.config import App, Config, parse_config
 from maker.const import BadgeStyle, Frequency
 
 
-@pytest.fixture()
+@pytest.fixture(scope="session")
 def config_path() -> str:
     path = Path(__file__).parent / "config.yml"
     return str(path)
 
 
-def test_it(config_path):
-    config = parse_config(config=config_path)
+@pytest.fixture(scope="session")
+def config(config_path: str) -> Generator[Config, None, None]:
+    config = parse_config(config_path)
+    yield config
 
     assert (
         config.secrets.private_key
