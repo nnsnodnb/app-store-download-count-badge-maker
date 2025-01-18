@@ -1,6 +1,5 @@
 [project]
 name = "app-store-download-count-badge-maker"
-version = "0.0.0" # replacing poetry-dynamic-versioning
 description = "A command-line tool to create badges displaying the number of app downloads from App Store"
 authors = [
     { name = "nnsnodnb", email = "nnsnodnb@gmail.com" }
@@ -22,8 +21,10 @@ classifiers = [
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
 ]
+dynamic = ["version"]
 
 [tool.poetry]
+version = "0.0.0" # replacing poetry-dynamic-versioning
 packages = [
     { include = "maker" }
 ]
