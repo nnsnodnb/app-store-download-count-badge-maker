@@ -31,6 +31,18 @@ class Config:
     secrets: Secrets
     apps: List[App]
 
+    def make_index_html_text(self) -> str:
+        def get_badge_name(app: App) -> str:
+            return f"{app.apple_identifier}-{app.frequency.badge_value}.svg"
+
+        badges = [get_badge_name(app) for app in self.apps]
+
+        li_tags = "".join(map(lambda badge: f'<li><a href="./{badge}">{badge}</a></li>', badges))
+        ul_tag = f"<ul>{li_tags}</ul>"
+        html = f"<!DOCTYPE html><html><body>{ul_tag}</body></html>"
+
+        return html
+
 
 def parse_config(config: str) -> Config:
     with Path(config).open("r") as f:
