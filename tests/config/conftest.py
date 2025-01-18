@@ -1,4 +1,5 @@
 from pathlib import Path
+from typing import Generator
 
 import pytest
 
@@ -13,7 +14,7 @@ def config_path() -> str:
 
 
 @pytest.fixture(scope="session")
-def config(config_path: str) -> Config:
+def config(config_path: str) -> Generator[Config, None, None]:
     config = parse_config(config_path)
     yield config
 
