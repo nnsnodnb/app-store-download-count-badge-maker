@@ -15,6 +15,8 @@ def test_make_index_html_text(config: Config):
 <li><a href="./1234567890-year.svg">1234567890-year.svg</a></li>
 </ul>
 </body>
-</html>""".replace("\n", "")
+</html>""".replace(
+        "\n", ""
+    )
 
     assert actual == expected

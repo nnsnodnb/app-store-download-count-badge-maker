@@ -3,7 +3,7 @@ from pathlib import Path
 import pytest
 
 from maker.config import App, Config, parse_config
-from maker.const import  BadgeStyle, Frequency
+from maker.const import BadgeStyle, Frequency
 
 
 @pytest.fixture(scope="session")
@@ -18,8 +18,8 @@ def config(config_path: str) -> Config:
     yield config
 
     assert (
-            config.secrets.private_key
-            == "-----BEGIN PRIVATE KEY-----\ndummydummydummydummydummydummy\n-----END PRIVATE KEY-----\n"
+        config.secrets.private_key
+        == "-----BEGIN PRIVATE KEY-----\ndummydummydummydummydummydummy\n-----END PRIVATE KEY-----\n"
     )
     assert config.secrets.issuer_id == "12345678-1234-1234-1234-123456789012"
     assert config.secrets.key_id == 12345678
