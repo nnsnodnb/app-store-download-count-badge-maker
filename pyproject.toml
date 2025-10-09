@@ -14,8 +14,16 @@ keywords = [
     "download count",
 ]
 classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "License :: OSI Approved :: MIT License",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Information Technology",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Topic :: Software Development :: Libraries :: Application Frameworks",
+    "Topic :: Utilities",
+    "Environment :: Console",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
@@ -24,30 +32,27 @@ classifiers = [
 dynamic = ["version"]
 
 [tool.poetry]
-version = "0.0.0" # replacing poetry-dynamic-versioning
 packages = [
     { include = "maker" }
 ]
+version = "0.0.0" # replacing poetry-dynamic-versioning
 
 [tool.poetry.dependencies]
-python = ">=3.9,<3.14"
-cryptography = ">=43.0.0,<45.0.0"
+python = ">=3.10,<3.14"
 httpx = "^0.28.0"
 pandas = "^2.2.2"
-PyJWT = "^2.9.0"
+PyJWT = {version = "^2.9.0", extras = ["crypto"]}
 PyYAML = "^6.0.2"
 click = "^8.1.7"
 
 [tool.poetry.group.dev.dependencies]
-black = "^25.0.0"
-isort = "^6.0.0"
 mypy = "^1.11.2"
-flake8 = "^7.1.1"
 invoke = "^2.2.0"
 types-pyyaml = "^6.0.12.20240808"
 pytest-httpx = "^0.35.0"
 pytest-asyncio = "^1.0.0"
 pytest-mock = "^3.14.0"
+ruff = "^0.14.0"
 
 [tool.poetry.scripts]
 app-store-download-count-badge-maker = "maker.main:cli"
@@ -61,24 +66,23 @@ style = "pep440"
 requires = ["poetry-core", "poetry-dynamic-versioning>=1.0.0,<2.0.0"]
 build-backend = "poetry_dynamic_versioning.backend"
 
-[tool.black]
+[tool.ruff]
 line-length = 120
-include = '\.pyi?$'
-exclude = '''
-(
-    /(
-         \.git
-        |\.github
-        |\.mypy_cache
-        |\.pytest_cache
-    )/
-)
-'''
 
-[tool.isort]
-include_trailing_comma = true
-line_length = 120
-multi_line_output = 3
+[tool.ruff.lint]
+extend-select = ["E501"]
+select = [
+    "E",  # pycodestyle errors
+    "W",  # pycodestyle warnings
+    "F",  # pyflakes
+    "I",  # isort
+    "B",  # flake8-bugbear
+    "C4",  # flake8-comprehensions
+    "UP",  # pyupgrade
+]
 
 [tool.pytest.ini_options]
 asyncio_default_fixture_loop_scope = "function"
+testpaths = [
+    "tests",
+]

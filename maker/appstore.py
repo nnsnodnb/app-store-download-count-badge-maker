@@ -5,7 +5,7 @@ import tempfile
 from dataclasses import dataclass, field
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Set
+from typing import Any
 
 import httpx
 import jwt
@@ -61,22 +61,22 @@ class AppStoreConnectErrorResponse:
     code: str
     title: str
     detail: str
-    id_: Optional[str] = field(default=None, metadata={"original": "id"})
-    source: Optional[str] = field(default=None)
-    meta: Optional[Dict[str, Any]] = field(default=None)
-    links: Optional[Dict[str, Any]] = field(default=None)
+    id_: str | None = field(default=None, metadata={"original": "id"})
+    source: str | None = field(default=None)
+    meta: dict[str, Any] | None = field(default=None)
+    links: dict[str, Any] | None = field(default=None)
 
     @classmethod
-    def from_dict(cls, data: Dict[str, Any]) -> "AppStoreConnectErrorResponse":
+    def from_dict(cls, data: dict[str, Any]) -> "AppStoreConnectErrorResponse":
         field_map = {f.metadata.get("original", f.name): f.name for f in cls.__dataclass_fields__.values()}
         kwargs = {field_map.get(k, k): v for k, v in data.items()}
         return cls(**kwargs)
 
 
 class AppStoreConnectError(Exception):
-    errors: List[AppStoreConnectErrorResponse]
+    errors: list[AppStoreConnectErrorResponse]
 
-    def __init__(self, err: Dict[str, Any]) -> None:
+    def __init__(self, err: dict[str, Any]) -> None:
         errs = err.get("errors", [])
         self.errors = [AppStoreConnectErrorResponse.from_dict(data) for data in errs]
 
@@ -102,7 +102,7 @@ def gen_token(secrets: Secrets) -> str:
 
 async def get_sales_reports_with_frequency(
     client: AsyncClient, secrets: Secrets, frequency: Frequency, download_dir: Path
-) -> Optional[int]:
+) -> int | None:
     params = {
         "filter[frequency]": frequency.value,
         "filter[reportDate]": frequency.report_date(today=datetime.today()),
@@ -120,7 +120,7 @@ async def get_sales_reports_with_frequency(
         if e.response.status_code == httpx.codes.NOT_FOUND:
             return 0
         else:
-            raise AppStoreConnectError(e.response.json())
+            raise AppStoreConnectError(e.response.json()) from e
 
     with gzip.open(io.BytesIO(res.content), "rb") as f:
         data = f.read()
@@ -131,7 +131,7 @@ async def get_sales_reports_with_frequency(
     return None
 
 
-async def download_sales_reports(secrets: Secrets, frequencies: Set[Frequency], download_dir: Path) -> None:
+async def download_sales_reports(secrets: Secrets, frequencies: set[Frequency], download_dir: Path) -> None:
     token = gen_token(secrets)
     headers = {
         "Authorization": f"Bearer {token}",
@@ -163,11 +163,11 @@ def get_sales_reports(secrets: Secrets, app: App, download_dir: Path) -> SalesRe
     return SalesReport(units=units, app=app)
 
 
-def sales_reports(config: Config) -> List[SalesReport]:
+def sales_reports(config: Config) -> list[SalesReport]:
     with tempfile.TemporaryDirectory() as tmpdir:
         download_dir = Path(tmpdir)
 
-        frequencies = set(app.frequency for app in config.apps)
+        frequencies = {app.frequency for app in config.apps}
         asyncio.run(
             download_sales_reports(
                 secrets=config.secrets,
