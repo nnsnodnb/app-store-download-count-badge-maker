@@ -1,6 +1,6 @@
 # app-store-download-count-badge-maker
 
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 
 [![PyPI Package version](https://badge.fury.io/py/app-store-download-count-badge-maker.svg)](https://pypi.org/project/app-store-download-count-badge-maker)
 [![Python Supported versions](https://img.shields.io/pypi/pyversions/app-store-download-count-badge-maker.svg)](https://pypi.org/project/app-store-download-count-badge-maker)
