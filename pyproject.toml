@@ -40,10 +40,9 @@ version = "0.0.0" # replacing poetry-dynamic-versioning
 
 [tool.poetry.dependencies]
 python = ">=3.9,<3.14"
-cryptography = ">=43.0.0,<45.0.0"
 httpx = "^0.28.0"
 pandas = "^2.2.2"
-PyJWT = "^2.9.0"
+PyJWT = {version = "^2.9.0", extras = ["crypto"]}
 PyYAML = "^6.0.2"
 click = "^8.1.7"
 
