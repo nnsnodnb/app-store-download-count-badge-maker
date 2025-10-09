@@ -1,7 +1,6 @@
 import calendar
 import sys
 from datetime import datetime, timedelta
-from typing import Optional
 
 # Support for versions below Python 3.11
 if sys.version_info >= (3, 11):
@@ -29,7 +28,7 @@ class Frequency(Enum):
         else:
             raise ValueError(f"Invalid frequency: {self}")
 
-    def report_date(self, today: datetime) -> Optional[str]:
+    def report_date(self, today: datetime) -> str | None:
         base = today - timedelta(days=3)
         if self == Frequency.YEARLY:
             return str(base.year - 1)

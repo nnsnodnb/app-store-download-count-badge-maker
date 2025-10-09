@@ -24,7 +24,7 @@ def _parse_config(config: str) -> Config:
         return parse_config(config=config)
     except InvalidConfigError as e:
         click.echo(e, err=True)
-        raise click.exceptions.Exit(1)
+        raise click.exceptions.Exit(1) from e
 
 
 @click.command(help="Generate badges for the App Store download count.")

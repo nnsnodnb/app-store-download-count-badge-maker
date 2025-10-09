@@ -1,6 +1,5 @@
 from dataclasses import dataclass
 from pathlib import Path
-from typing import List
 
 import yaml
 
@@ -29,7 +28,7 @@ class App:
 @dataclass(frozen=True)
 class Config:
     secrets: Secrets
-    apps: List[App]
+    apps: list[App]
 
     def make_index_html_text(self) -> str:
         def get_badge_name(app: App) -> str:
@@ -37,7 +36,7 @@ class Config:
 
         badges = [get_badge_name(app) for app in self.apps]
 
-        li_tags = "".join(map(lambda badge: f'<li><a href="./{badge}">{badge}</a></li>', badges))
+        li_tags = "".join(f'<li><a href="./{badge}">{badge}</a></li>' for badge in badges)
         ul_tag = f"<ul>{li_tags}</ul>"
         html = f"<!DOCTYPE html><html><body>{ul_tag}</body></html>"
 
@@ -50,13 +49,13 @@ def parse_config(config: str) -> Config:
 
     try:
         raw_secrets = data["secrets"]
-    except KeyError:
-        raise InvalidConfigError("Missing 'secrets' key in the configuration file.")
+    except KeyError as e:
+        raise InvalidConfigError("Missing 'secrets' key in the configuration file.") from e
 
     try:
         private_key = Path(raw_secrets["private_key"]).read_text()
-    except (KeyError, FileNotFoundError):
-        raise InvalidConfigError("Invalid the configuration file.")
+    except (KeyError, FileNotFoundError) as e:
+        raise InvalidConfigError("Invalid the configuration file.") from e
 
     try:
         secrets = Secrets(
@@ -65,8 +64,8 @@ def parse_config(config: str) -> Config:
             key_id=raw_secrets["key_id"],
             vendor_number=raw_secrets["vendor_number"],
         )
-    except KeyError:
-        raise InvalidConfigError("Invalid the configuration file.")
+    except KeyError as e:
+        raise InvalidConfigError("Invalid the configuration file.") from e
 
     try:
         raw_apps = data["apps"]
@@ -75,21 +74,21 @@ def parse_config(config: str) -> Config:
             # Frequency
             try:
                 frequency = Frequency(app["frequency"])
-            except KeyError:
-                raise InvalidConfigError("Missing 'frequency' key in the configuration file.")
-            except ValueError:
-                raise InvalidConfigError("Invalid 'frequency' value in the configuration file.")
+            except KeyError as e:
+                raise InvalidConfigError("Missing 'frequency' key in the configuration file.") from e
+            except ValueError as e:
+                raise InvalidConfigError("Invalid 'frequency' value in the configuration file.") from e
             # BadgeStyle
             if (raw_bs := app.get("badge_style")) is not None:
                 try:
                     badge_style = BadgeStyle(raw_bs)
-                except ValueError:
-                    raise InvalidConfigError("Invalid 'badge_style' value in the configuration file.")
+                except ValueError as e:
+                    raise InvalidConfigError("Invalid 'badge_style' value in the configuration file.") from e
             else:
                 badge_style = BadgeStyle.FLAT
 
             apps.append(App(apple_identifier=app["apple_identifier"], frequency=frequency, badge_style=badge_style))
-    except KeyError:
-        raise InvalidConfigError("Missing 'apps' key in the configuration file.")
+    except KeyError as e:
+        raise InvalidConfigError("Missing 'apps' key in the configuration file.") from e
 
     return Config(secrets=secrets, apps=apps)
