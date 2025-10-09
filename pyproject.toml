@@ -24,7 +24,6 @@ classifiers = [
     "Topic :: Utilities",
     "Environment :: Console",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
@@ -39,7 +38,7 @@ packages = [
 version = "0.0.0" # replacing poetry-dynamic-versioning
 
 [tool.poetry.dependencies]
-python = ">=3.9,<3.14"
+python = ">=3.10,<3.14"
 httpx = "^0.28.0"
 pandas = "^2.2.2"
 PyJWT = {version = "^2.9.0", extras = ["crypto"]}
