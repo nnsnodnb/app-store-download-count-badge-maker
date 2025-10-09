@@ -14,6 +14,15 @@ keywords = [
     "download count",
 ]
 classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "License :: OSI Approved :: MIT License",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Information Technology",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Topic :: Software Development :: Libraries :: Application Frameworks",
+    "Topic :: Utilities",
+    "Environment :: Console",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
@@ -24,10 +33,10 @@ classifiers = [
 dynamic = ["version"]
 
 [tool.poetry]
-version = "0.0.0" # replacing poetry-dynamic-versioning
 packages = [
     { include = "maker" }
 ]
+version = "0.0.0" # replacing poetry-dynamic-versioning
 
 [tool.poetry.dependencies]
 python = ">=3.9,<3.14"
