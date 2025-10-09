@@ -57,6 +57,7 @@ types-pyyaml = "^6.0.12.20240808"
 pytest-httpx = "^0.35.0"
 pytest-asyncio = "^1.0.0"
 pytest-mock = "^3.14.0"
+ruff = "^0.14.0"
 
 [tool.poetry.scripts]
 app-store-download-count-badge-maker = "maker.main:cli"
@@ -70,24 +71,23 @@ style = "pep440"
 requires = ["poetry-core", "poetry-dynamic-versioning>=1.0.0,<2.0.0"]
 build-backend = "poetry_dynamic_versioning.backend"
 
-[tool.black]
+[tool.ruff]
 line-length = 120
-include = '\.pyi?$'
-exclude = '''
-(
-    /(
-         \.git
-        |\.github
-        |\.mypy_cache
-        |\.pytest_cache
-    )/
-)
-'''
 
-[tool.isort]
-include_trailing_comma = true
-line_length = 120
-multi_line_output = 3
+[tool.ruff.lint]
+extend-select = ["E501"]
+select = [
+    "E",  # pycodestyle errors
+    "W",  # pycodestyle warnings
+    "F",  # pyflakes
+    "I",  # isort
+    "B",  # flake8-bugbear
+    "C4",  # flake8-comprehensions
+    "UP",  # pyupgrade
+]
 
 [tool.pytest.ini_options]
 asyncio_default_fixture_loop_scope = "function"
+testpaths = [
+    "tests",
+]
