@@ -14,7 +14,7 @@ def config_path() -> str:
 
 
 @pytest.fixture(scope="session")
-def config(config_path: str) -> Generator[Config, None, None]:
+def config(config_path: str) -> Generator[Config]:
     config = parse_config(config_path)
     yield config
 
