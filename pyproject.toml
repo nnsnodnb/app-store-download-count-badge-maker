@@ -1,12 +1,10 @@
 [project]
 name = "app-store-download-count-badge-maker"
 description = "A command-line tool to create badges displaying the number of app downloads from App Store"
-authors = [
-    { name = "nnsnodnb", email = "nnsnodnb@gmail.com" }
-]
-license = "MIT"
+authors = [{ name = "nnsnodnb", email = "nnsnodnb@gmail.com" }]
+requires-python = ">=3.10,<3.14"
 readme = "README.md"
-repository = "https://github.com/nnsnodnb/app-store-download-count-badge-maker"
+license = "MIT"
 keywords = [
     "apple",
     "app store",
@@ -29,42 +27,54 @@ classifiers = [
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
 ]
+dependencies = [
+    "httpx>=0.28.0,<0.29",
+    "pandas>=2.2.2,<3",
+    "PyJWT[crypto]>=2.9.0,<3",
+    "PyYAML>=6.0.2,<7",
+    "click>=8.1.7,<9",
+]
 dynamic = ["version"]
 
-[tool.poetry]
-packages = [
-    { include = "maker" }
-]
-version = "0.0.0" # replacing poetry-dynamic-versioning
+[project.urls]
+repository = "https://github.com/nnsnodnb/app-store-download-count-badge-maker"
 
-[tool.poetry.dependencies]
-python = ">=3.10,<3.14"
-httpx = "^0.28.0"
-pandas = "^2.2.2"
-PyJWT = {version = "^2.9.0", extras = ["crypto"]}
-PyYAML = "^6.0.2"
-click = "^8.1.7"
-
-[tool.poetry.group.dev.dependencies]
-mypy = "^1.11.2"
-invoke = "^2.2.0"
-types-pyyaml = "^6.0.12.20240808"
-pytest-httpx = "^0.35.0"
-pytest-asyncio = "^1.0.0"
-pytest-mock = "^3.14.0"
-ruff = "^0.14.0"
-
-[tool.poetry.scripts]
+[project.scripts]
 app-store-download-count-badge-maker = "maker.main:cli"
 
-[tool.poetry-dynamic-versioning]
-enable = true
+[dependency-groups]
+dev = [
+    "mypy>=1.11.2,<2",
+    "invoke>=2.2.0,<3",
+    "types-pyyaml>=6.0.12.20240808,<7",
+    "pytest-httpx>=0.35.0,<0.36",
+    "pytest-asyncio>=1.0.0,<2",
+    "pytest-mock>=3.14.0,<4",
+    "ruff>=0.14.0,<0.15",
+    "hatch>=1.14.2",
+    "uv-dynamic-versioning>=0.11.2",
+]
+
+[tool.hatch.build.targets.sdist]
+include = ["maker"]
+
+[tool.hatch.build.targets.wheel]
+include = ["maker"]
+
+[tool.hatch.version]
+source = "uv-dynamic-versioning"
+
+[tool.hatch.build.hooks.version]
+path = "maker/_version.py"
+vsc = "git"
+
+[tool.uv-dynamic-versioning]
 vcs = "git"
 style = "pep440"
 
 [build-system]
-requires = ["poetry-core", "poetry-dynamic-versioning>=1.0.0,<2.0.0"]
-build-backend = "poetry_dynamic_versioning.backend"
+requires = ["hatchling", "uv-dynamic-versioning"]
+build-backend = "hatchling.build"
 
 [tool.ruff]
 line-length = 120
