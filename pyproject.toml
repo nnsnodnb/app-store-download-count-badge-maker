@@ -2,7 +2,7 @@
 name = "app-store-download-count-badge-maker"
 description = "A command-line tool to create badges displaying the number of app downloads from App Store"
 authors = [{ name = "nnsnodnb", email = "nnsnodnb@gmail.com" }]
-requires-python = ">=3.14,<3.15"
+requires-python = ">=3.10,<3.15"
 readme = "README.md"
 license = "MIT"
 keywords = [
