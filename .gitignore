@@ -199,3 +199,5 @@ Temporary Items
 config.secrets.yml
 dist
 !tests/config/dummy.p8
+
+maker/_version.py
