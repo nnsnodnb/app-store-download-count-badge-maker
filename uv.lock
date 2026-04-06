@@ -58,7 +58,7 @@ requires-dist = [
 [package.metadata.requires-dev]
 dev = [
     { name = "hatch", specifier = ">=1.14.2" },
-    { name = "invoke", specifier = ">=2.2.0,<3" },
+    { name = "invoke", specifier = ">=3,<4" },
     { name = "mypy", specifier = ">=1.11.2,<2" },
     { name = "pytest-asyncio", specifier = ">=1.0.0,<2" },
     { name = "pytest-httpx", specifier = ">=0.35.0,<0.36" },
@@ -429,11 +429,11 @@ wheels = [
 
 [[package]]
 name = "invoke"
-version = "2.2.0"
+version = "3.0.0"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/f9/42/127e6d792884ab860defc3f4d80a8f9812e48ace584ffc5a346de58cdc6c/invoke-2.2.0.tar.gz", hash = "sha256:ee6cbb101af1a859c7fe84f2a264c059020b0cb7fe3535f9424300ab568f6bd5", size = 299835, upload-time = "2023-07-12T18:05:17.998Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/de/a1/b576a52091c4bbc8e018e0a2bd2057a39cfcea6c9b6bc39213c7be7a0323/invoke-3.0.0.tar.gz", hash = "sha256:a6a47bc21af36a9e72ee2304d537dbbc4608528a2d31ca5a10d2c4dc7dc7f0b0", size = 308645, upload-time = "2026-04-05T23:38:17.885Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/0a/66/7f8c48009c72d73bc6bbe6eb87ac838d6a526146f7dab14af671121eb379/invoke-2.2.0-py3-none-any.whl", hash = "sha256:6ea924cc53d4f78e3d98bc436b08069a03077e6f85ad1ddaa8a116d7dad15820", size = 160274, upload-time = "2023-07-12T18:05:16.294Z" },
+    { url = "https://files.pythonhosted.org/packages/0f/ad/a3c6bd0b7af6b77c1896ab5125893738c78af550021d6805440dc2455174/invoke-3.0.0-py3-none-any.whl", hash = "sha256:a177e378623c2cecbd85cbbf6a00a512a5cabd7b500e1a90c6dd722819ec86a0", size = 160879, upload-time = "2026-04-05T23:38:16.509Z" },
 ]
 
 [[package]]
