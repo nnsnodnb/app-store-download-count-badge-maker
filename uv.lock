@@ -50,7 +50,8 @@ dev = [
 requires-dist = [
     { name = "click", specifier = ">=8.1.7,<9" },
     { name = "httpx", specifier = ">=0.28.0,<0.29" },
-    { name = "pandas", specifier = ">=2.2.2,<3" },
+    { name = "pandas", marker = "python_full_version < '3.11'", specifier = ">=2.2.2,<3" },
+    { name = "pandas", marker = "python_full_version >= '3.11'", specifier = ">=2.2.2,<3.1" },
     { name = "pyjwt", extras = ["crypto"], specifier = ">=2.9.0,<3" },
     { name = "pyyaml", specifier = ">=6.0.2,<7" },
 ]
