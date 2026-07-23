@@ -51,7 +51,7 @@ dev = [
     "pytest-httpx>=0.35.0,<0.37",
     "pytest-asyncio>=1.0.0,<2",
     "pytest-mock>=3.14.0,<4",
-    "ruff>=0.15.5,<0.16",
+    "ruff>=0.16,<0.17",
     "hatch>=1.14.2",
     "uv-dynamic-versioning>=0.11.2",
 ]
