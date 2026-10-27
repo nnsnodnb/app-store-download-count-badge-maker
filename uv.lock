@@ -27,7 +27,7 @@ name = "app-store-download-count-badge-maker"
 source = { editable = "." }
 dependencies = [
     { name = "click" },
-    { name = "httpx" },
+    { name = "httpx2" },
     { name = "pandas" },
     { name = "pyjwt", extra = ["crypto"] },
     { name = "pyyaml" },
@@ -36,6 +36,7 @@ dependencies = [
 [package.dev-dependencies]
 dev = [
     { name = "hatch" },
+    { name = "httpx2-pytest" },
     { name = "invoke" },
     { name = "mypy" },
     { name = "pytest-asyncio" },
@@ -49,7 +50,7 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "click", specifier = ">=8.1.7,<9" },
-    { name = "httpx", specifier = ">=0.28.0,<0.29" },
+    { name = "httpx2", specifier = ">=2.12.0" },
     { name = "pandas", marker = "python_full_version < '3.11'", specifier = ">=2.2.2,<3" },
     { name = "pandas", marker = "python_full_version >= '3.11'", specifier = ">=2.2.2,<3.1" },
     { name = "pyjwt", extras = ["crypto"], specifier = ">=2.9.0,<3" },
@@ -59,6 +60,7 @@ requires-dist = [
 [package.metadata.requires-dev]
 dev = [
     { name = "hatch" },
+    { name = "httpx2-pytest" },
     { name = "invoke" },
     { name = "mypy" },
     { name = "pytest-asyncio" },
@@ -605,6 +607,19 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/cd/c4/0e5636363151a2a1795e0a77617168b9ca438e1748ec05fc9b5687f93d64/httpx2_jsfetch-1.0.tar.gz", hash = "sha256:70a0e3eabfef7cce5ad9c629f7d01ca05e418f586646f4ddf14782e4c1454c60", size = 6872, upload-time = "2026-08-07T00:13:07.492Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/9b/43/832f631d32e4f1211caa2ba368317739fe71f0b8530e4c9d15dc454bac2a/httpx2_jsfetch-1.0-py3-none-any.whl", hash = "sha256:cb916b707601e69a07721aabc8f3f6659be3a6893bc1ff5c6f9e02241df2da32", size = 6382, upload-time = "2026-08-07T00:13:06.567Z" },
+]
+
+[[package]]
+name = "httpx2-pytest"
+version = "2.0.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "httpx2" },
+    { name = "pytest" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/fe/2e/66762cb820f4857a8038181ee4deb679905dbd5a1447a7e82993e1c5ddc0/httpx2_pytest-2.0.0.tar.gz", hash = "sha256:0f7e3777be96016bb070c12a64f99e0f1d9437b5b374c7ca331bc95a398cd946", size = 60492, upload-time = "2026-09-04T09:09:57.791Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/42/77/f100314adb8bc833bd224616e269c8a5feb196b0baa9f7d634d2f36c4e1e/httpx2_pytest-2.0.0-py3-none-any.whl", hash = "sha256:b8a63711bc40edc163c22268800d50e21c4266bb9571240bcd0cbfaf69c33cf6", size = 21304, upload-time = "2026-09-04T09:09:56.392Z" },
 ]
 
 [[package]]

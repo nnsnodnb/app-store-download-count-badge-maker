@@ -7,10 +7,10 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any
 
-import httpx
+import httpx2
 import jwt
 import pandas as pd
-from httpx import AsyncClient
+from httpx2 import AsyncClient
 
 from .config import App, Config, Frequency, Secrets
 from .const import Color
@@ -116,8 +116,8 @@ async def get_sales_reports_with_frequency(
 
     try:
         res.raise_for_status()
-    except httpx.HTTPStatusError as e:
-        if e.response.status_code == httpx.codes.NOT_FOUND:
+    except httpx2.HTTPStatusError as e:
+        if e.response.status_code == httpx2.codes.NOT_FOUND:
             return 0
         else:
             raise AppStoreConnectError(e.response.json()) from e
