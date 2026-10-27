@@ -1,7 +1,7 @@
 from pathlib import Path
 
 import pytest
-from httpx import AsyncClient
+from httpx2 import AsyncClient
 
 from maker.appstore import SalesReport
 from maker.badge import download_badge
@@ -16,8 +16,8 @@ def svg_bytes():
 
 
 @pytest.mark.asyncio
-async def test_it(tmp_path, httpx_mock, svg_bytes):
-    httpx_mock.add_response(
+async def test_it(tmp_path, httpx2_mock, svg_bytes):
+    httpx2_mock.add_response(
         status_code=200,
         content=svg_bytes,
     )

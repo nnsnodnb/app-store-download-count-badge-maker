@@ -2,7 +2,7 @@ import asyncio
 from pathlib import Path
 from urllib.parse import urlencode
 
-from httpx import AsyncClient
+from httpx2 import AsyncClient
 
 from .appstore import SalesReport
 
