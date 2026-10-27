@@ -45,15 +45,15 @@ app-store-download-count-badge-maker = "maker.main:cli"
 
 [dependency-groups]
 dev = [
-    "mypy>=1.11.2,<3",
-    "invoke>=2.2.0,<4",
-    "types-pyyaml>=6.0.12.20240808,<7",
-    "pytest-httpx>=0.35.0,<0.37",
-    "pytest-asyncio>=1.0.0,<2",
-    "pytest-mock>=3.14.0,<4",
-    "ruff>=0.17,<0.18",
-    "hatch>=1.14.2",
-    "uv-dynamic-versioning>=0.11.2",
+    "mypy",
+    "invoke",
+    "types-pyyaml",
+    "pytest-httpx",
+    "pytest-asyncio",
+    "pytest-mock",
+    "ruff",
+    "hatch",
+    "uv-dynamic-versioning",
 ]
 
 [tool.hatch.build.targets.sdist]
