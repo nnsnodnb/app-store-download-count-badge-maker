@@ -50,7 +50,7 @@ jobs:
     - uses: actions/checkout@v7.0.1
 
     - name: actionlint
-      uses: reviewdog/action-actionlint@v1.80.7
+      uses: reviewdog/action-actionlint@v1.81.1
       with:
         github_token: ${{ secrets.github_token }}
         reporter: github-pr-review
