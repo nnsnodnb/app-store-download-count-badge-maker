@@ -1,15 +1,9 @@
 import calendar
-import sys
 from datetime import datetime, timedelta
-
-# Support for versions below Python 3.11
-if sys.version_info >= (3, 11):
-    from enum import StrEnum as Enum
-else:
-    from enum import Enum
+from enum import StrEnum
 
 
-class Frequency(Enum):
+class Frequency(StrEnum):
     YEARLY = "YEARLY"
     MONTHLY = "MONTHLY"
     WEEKLY = "WEEKLY"
@@ -49,7 +43,7 @@ class Frequency(Enum):
             raise ValueError(f"Invalid frequency: {self}")
 
 
-class BadgeStyle(Enum):
+class BadgeStyle(StrEnum):
     FLAT = "flat"
     FLAT_SQUARE = "flat-square"
     FOR_THE_BADGE = "for-the-badge"
@@ -57,7 +51,7 @@ class BadgeStyle(Enum):
     SOCIAL = "social"
 
 
-class Color(Enum):
+class Color(StrEnum):
     RED = "red"
     YELLOW = "yellow"
     YELLOWGREEN = "yellowgreen"
